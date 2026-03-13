@@ -1,4 +1,4 @@
 package com.trung.chat.chatapp.service;
 
-public class CreateConversationService {
+public class ConversationService {
 }

@@ -16,8 +16,10 @@ public class User {
     private String userName;
     private String email;
     private String password;
-    @OneToMany(mappedBy = "messageId", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    List<Message> messageList = new ArrayList<>();
+//    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    List<Message> messageList = new ArrayList<>();
+    // Tương tự như bên Conversation
+
     private LocalDateTime createdAt;
 
     public User() {
@@ -73,11 +75,11 @@ public class User {
         return userId;
     }
 
-    public List<Message> getMessageList() {
-        return messageList;
-    }
-
-    public void setMessageList(List<Message> messageList) {
-        this.messageList = messageList;
-    }
+//    public List<Message> getMessageList() {
+//        return messageList;
+//    }
+//
+//    public void setMessageList(List<Message> messageList) {
+//        this.messageList = messageList;
+//    }
 }
