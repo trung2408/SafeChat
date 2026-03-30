@@ -1,4 +1,4 @@
-package com.trung.chat.chatapp.dto.conversation;
+package com.trung.chat.safechat.dto.conversation;
 
 import java.util.List;
 import java.util.UUID;
