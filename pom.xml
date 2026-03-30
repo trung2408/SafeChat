@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.trung.chat</groupId>
-    <artifactId>ChatApp</artifactId>
+    <artifactId>safe-chat</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>ChatApp</name>
+    <name>Safe Chat</name>
     <description>ChatApp</description>
     <url/>
     <licenses>
