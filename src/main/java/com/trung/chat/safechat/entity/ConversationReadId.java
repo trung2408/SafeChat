@@ -1,4 +1,4 @@
-package com.trung.chat.chatapp.entity;
+package com.trung.chat.safechat.entity;
 
 import jakarta.persistence.Embeddable;
 
