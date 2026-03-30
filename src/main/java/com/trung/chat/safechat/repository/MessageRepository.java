@@ -1,6 +1,6 @@
-package com.trung.chat.chatapp.repository;
+package com.trung.chat.safechat.repository;
 
-import com.trung.chat.chatapp.entity.Message;
+import com.trung.chat.safechat.entity.Message;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
