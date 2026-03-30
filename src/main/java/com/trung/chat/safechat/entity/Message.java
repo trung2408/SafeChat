@@ -9,8 +9,8 @@ import java.util.UUID;
 @Table(name = "messages")
 public class Message {
     @Id
-    @GeneratedValue
-    private UUID messageId;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
     @ManyToOne
     @JoinColumn(name = "conversation_id", nullable = false)
     private Conversation conversation;
@@ -20,6 +20,11 @@ public class Message {
     private String content;
     private LocalDateTime createdAt;
 
+    @PrePersist
+    public void onCreating(){
+        this.createdAt = LocalDateTime.now();
+    }
+
     public Message() {
     }
 
@@ -28,11 +33,11 @@ public class Message {
     }
 
     public UUID getMessageId() {
-        return messageId;
+        return id;
     }
 
     public void setMessageId(UUID messageId) {
-        this.messageId = messageId;
+        this.id = messageId;
     }
 
     public Conversation getConversation() {
