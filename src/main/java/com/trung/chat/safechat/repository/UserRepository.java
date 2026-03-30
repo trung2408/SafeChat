@@ -7,5 +7,4 @@ import java.util.UUID;
 
 public interface UserRepository extends JpaRepository<User, UUID> {
 
-    boolean existsByUserIdAndConversationId(UUID senderId, UUID conversationId);
 }
