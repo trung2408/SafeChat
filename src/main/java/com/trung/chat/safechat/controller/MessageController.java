@@ -1,9 +1,9 @@
-package com.trung.chat.chatapp.controller;
+package com.trung.chat.safechat.controller;
 
-import com.trung.chat.chatapp.dto.message.MessageResponseDTO;
-import com.trung.chat.chatapp.dto.message.SendMessageRequestDTO;
-import com.trung.chat.chatapp.entity.Message;
-import com.trung.chat.chatapp.service.MessageService;
+import com.trung.chat.safechat.dto.message.MessageResponseDTO;
+import com.trung.chat.safechat.dto.message.SendMessageRequestDTO;
+import com.trung.chat.safechat.entity.Message;
+import com.trung.chat.safechat.service.MessageService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
