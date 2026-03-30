@@ -1,6 +1,6 @@
-package com.trung.chat.chatapp.dto.conversation;
+package com.trung.chat.safechat.dto.conversation;
 
-import com.trung.chat.chatapp.entity.ConversationType;
+import com.trung.chat.safechat.entity.ConversationType;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
