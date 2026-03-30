@@ -1,7 +1,7 @@
-package com.trung.chat.chatapp.repository;
+package com.trung.chat.safechat.repository;
 
-import com.trung.chat.chatapp.entity.ConversationRead;
-import com.trung.chat.chatapp.entity.ConversationReadId;
+import com.trung.chat.safechat.entity.ConversationRead;
+import com.trung.chat.safechat.entity.ConversationReadId;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;
