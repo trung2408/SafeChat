@@ -11,11 +11,13 @@ public class ConversationRead {
     private ConversationParticipantId id;
 
     @ManyToOne
-    @MapsId("conversation_id")
+    @MapsId("conversationId")
+    @JoinColumn(name = "conversation_id", nullable = false)
     private Conversation conversation;
 
     @ManyToOne
-    @MapsId("user_id")
+    @MapsId("userId")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @ManyToOne
