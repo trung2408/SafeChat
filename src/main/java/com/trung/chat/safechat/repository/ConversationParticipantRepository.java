@@ -11,5 +11,7 @@ import java.util.UUID;
 public interface ConversationParticipantRepository extends JpaRepository<ConversationParticipant, ConversationParticipantId> {
     int countByUser(ConversationParticipant conversationParticipant);
 
-    List<Conversation> findByPaticipantUserId(UUID userId);
+    List<Conversation> findByUserId(UUID userId);
+
+    boolean existsByUserIdAndConversationId(UUID senderId, UUID conversationId);
 }
