@@ -4,6 +4,7 @@ import com.trung.chat.safechat.dto.message.MessageResponseDTO;
 import com.trung.chat.safechat.entity.*;
 import com.trung.chat.safechat.exception.BussinessException;
 import com.trung.chat.safechat.exception.NotFountException;
+import com.trung.chat.safechat.repository.ConversationParticipantRepository;
 import com.trung.chat.safechat.repository.ConversationReadRepository;
 import com.trung.chat.safechat.repository.MessageRepository;
 import com.trung.chat.safechat.repository.UserRepository;
@@ -21,17 +22,19 @@ public class MessageService {
     private final UserRepository userRepository;
     private final ConversationService conversationService;
     private final ConversationReadRepository conversationReadRepository;
+    private final ConversationParticipantRepository conversationParticipantRepository;
 
-    public MessageService(MessageRepository messageRepository, UserRepository userRepository, ConversationService conversationService, ConversationReadRepository conversationReadRepository){
+    public MessageService(MessageRepository messageRepository, UserRepository userRepository, ConversationService conversationService, ConversationReadRepository conversationReadRepository, ConversationParticipantRepository conversationParticipantRepository){
         this.messageRepository = messageRepository;
         this.userRepository = userRepository;
         this.conversationService = conversationService;
         this.conversationReadRepository = conversationReadRepository;
+        this.conversationParticipantRepository = conversationParticipantRepository;
     }
 
     public Message sendMessage(UUID conversationId, UUID senderId, String content){
         Message message = new Message(content);
-        if(!userRepository.existsByUserIdAndConversationId(senderId, conversationId)){
+        if(!conversationParticipantRepository. existsByUserIdAndConversationId(senderId, conversationId)){
             throw new BussinessException("Sender is not in this conversation");
         }
 
@@ -51,9 +54,14 @@ public class MessageService {
         Message lastMessage = messageRepository.findTopByConversationOrderByCreatedAtDesc(conversationId).orElse(null);
         ConversationRead read = conversationReadRepository.findByConversationIdAndUserId(conversationId, userId);
         User user = userRepository.findById(userId).orElseThrow(() -> new NotFountException("User not found"));
-        read.setUser(user);
         Conversation conversation = conversationService.getConversation(conversationId);
-        read.setConversation(conversation);
+        if(read == null){
+            read = new ConversationRead(conversation, user);
+        }
+        else{
+            read.setUser(user);
+            read.setConversation(conversation);
+        }
         read.setLastReadMessage(lastMessage);
         read.setReadAt(LocalDateTime.now());
         conversationReadRepository.save(read);
