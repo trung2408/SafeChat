@@ -55,4 +55,8 @@ public class ConversationService {
         }
         return conversation;
     }
+
+    public List<Conversation> getUserConversation(UUID userId){
+        return conversationParticipantRepository.findByPaticipantUserId(userId);
+    }
 }
