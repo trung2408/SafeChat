@@ -1,14 +1,13 @@
-package com.trung.chat.chatapp.controller;
+package com.trung.chat.safechat.controller;
 
-import com.trung.chat.chatapp.dto.conversation.ConversationResponseDTO;
-import com.trung.chat.chatapp.dto.conversation.CreateGroupConversationRequestDTO;
-import com.trung.chat.chatapp.dto.conversation.CreatePrivateConversationRequestDTO;
-import com.trung.chat.chatapp.dto.message.MessageResponseDTO;
-import com.trung.chat.chatapp.entity.Conversation;
-import com.trung.chat.chatapp.entity.ConversationType;
-import com.trung.chat.chatapp.entity.Message;
-import com.trung.chat.chatapp.service.ConversationService;
-import com.trung.chat.chatapp.service.MessageService;
+import com.trung.chat.safechat.dto.conversation.ConversationResponseDTO;
+import com.trung.chat.safechat.dto.conversation.CreateGroupConversationRequestDTO;
+import com.trung.chat.safechat.dto.conversation.CreatePrivateConversationRequestDTO;
+import com.trung.chat.safechat.dto.message.MessageResponseDTO;
+import com.trung.chat.safechat.entity.Conversation;
+import com.trung.chat.safechat.entity.ConversationType;
+import com.trung.chat.safechat.service.ConversationService;
+import com.trung.chat.safechat.service.MessageService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
