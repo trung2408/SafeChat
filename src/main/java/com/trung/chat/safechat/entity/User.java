@@ -9,8 +9,8 @@ import java.util.UUID;
 @Table(name = "users")
 public class User {
     @Id
-    @GeneratedValue
-    private UUID userId;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
     private String userName;
     private String email;
     private String password;
@@ -19,6 +19,11 @@ public class User {
     // Tương tự như bên Conversation
 
     private LocalDateTime createdAt;
+
+    @PrePersist
+    public void onCreating(){
+        this.createdAt = LocalDateTime.now();
+    }
 
     public User() {
     }
@@ -34,7 +39,7 @@ public class User {
     }
 
     public void setUserId(UUID userId) {
-        this.userId = userId;
+        this.id = userId;
     }
 
     public String getUserName() {
@@ -70,7 +75,7 @@ public class User {
     }
 
     public UUID getUserId() {
-        return userId;
+        return id;
     }
 
 //    public List<Message> getMessageList() {
