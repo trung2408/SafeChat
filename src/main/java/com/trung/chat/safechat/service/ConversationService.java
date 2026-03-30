@@ -8,6 +8,7 @@ import com.trung.chat.safechat.exception.NotFountException;
 import com.trung.chat.safechat.repository.ConversationParticipantRepository;
 import com.trung.chat.safechat.repository.ConversationRepository;
 import com.trung.chat.safechat.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,7 +30,7 @@ public class ConversationService {
         Conversation conversation = conversationRepository.findById(conversationId).orElseThrow(() -> new NotFountException("Conversation not found"));
         return conversation;
     }
-
+    @Transactional
     public Conversation createPrivateConversation(UUID userA, UUID userB){
         Conversation existing = conversationRepository.findPrivateConversation(userA, userB);
         if(existing != null){
@@ -46,7 +47,7 @@ public class ConversationService {
             return conversation;
         }
     }
-
+    @Transactional
     public Conversation createGroupConversation(List<UUID> userList){
         Conversation conversation = new Conversation(ConversationType.GROUP);
         for(UUID userId : userList){
@@ -57,6 +58,6 @@ public class ConversationService {
     }
 
     public List<Conversation> getUserConversation(UUID userId){
-        return conversationParticipantRepository.findByPaticipantUserId(userId);
+        return conversationParticipantRepository.findByUserId(userId);
     }
 }
