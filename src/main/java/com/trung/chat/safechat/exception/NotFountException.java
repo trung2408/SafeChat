@@ -1,4 +1,4 @@
-package com.trung.chat.chatapp.exception;
+package com.trung.chat.safechat.exception;
 
 public class NotFountException extends RuntimeException{
     public NotFountException(String message){
