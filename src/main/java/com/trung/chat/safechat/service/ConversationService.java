@@ -1,13 +1,13 @@
-package com.trung.chat.chatapp.service;
+package com.trung.chat.safechat.service;
 
-import com.trung.chat.chatapp.entity.Conversation;
-import com.trung.chat.chatapp.entity.ConversationParticipant;
-import com.trung.chat.chatapp.entity.ConversationType;
-import com.trung.chat.chatapp.entity.User;
-import com.trung.chat.chatapp.exception.NotFountException;
-import com.trung.chat.chatapp.repository.ConversationParticipantRepository;
-import com.trung.chat.chatapp.repository.ConversationRepository;
-import com.trung.chat.chatapp.repository.UserRepository;
+import com.trung.chat.safechat.entity.Conversation;
+import com.trung.chat.safechat.entity.ConversationParticipant;
+import com.trung.chat.safechat.entity.ConversationType;
+import com.trung.chat.safechat.entity.User;
+import com.trung.chat.safechat.exception.NotFountException;
+import com.trung.chat.safechat.repository.ConversationParticipantRepository;
+import com.trung.chat.safechat.repository.ConversationRepository;
+import com.trung.chat.safechat.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
