@@ -9,16 +9,20 @@ import java.util.UUID;
 @Table(name = "conversations")
 public class Conversation {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private UUID conversationId;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
     @Enumerated(EnumType.STRING)
     private ConversationType type;
 
 //    @OneToMany(mappedBy = "conversation", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //    List<Message> messageList = new ArrayList<>();
     // Trong thực tế, một conversation sẽ có rất nhiều message, nên nếu thiết kế list message nằm toàn bộ trong conversation thì khi query và cần lấy message trong conversation sẽ phải load toàn bộ message, gây tốn tài nguyên và mất rất nhiều thời gian, cách thiết kế đúng là chỉ để message map ManyToOne đến conversation, khi nào cần lấy message thì query trực tiếp bên Message
-
     private LocalDateTime createdAt;
+
+    @PrePersist
+    public void onCreating(){
+        this.createdAt = LocalDateTime.now();
+    }
 
     public Conversation() {
     }
@@ -32,11 +36,11 @@ public class Conversation {
     }
 
     public UUID getConversationId() {
-        return conversationId;
+        return id;
     }
 
     public void setConversationId(UUID conversationId) {
-        this.conversationId = conversationId;
+        this.id = conversationId;
     }
 
     public ConversationType getType() {
