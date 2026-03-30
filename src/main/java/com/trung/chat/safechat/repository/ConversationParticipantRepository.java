@@ -1,8 +1,8 @@
-package com.trung.chat.chatapp.repository;
+package com.trung.chat.safechat.repository;
 
-import com.trung.chat.chatapp.entity.Conversation;
-import com.trung.chat.chatapp.entity.ConversationParticipant;
-import com.trung.chat.chatapp.entity.ConversationParticipantId;
+import com.trung.chat.safechat.entity.Conversation;
+import com.trung.chat.safechat.entity.ConversationParticipant;
+import com.trung.chat.safechat.entity.ConversationParticipantId;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
