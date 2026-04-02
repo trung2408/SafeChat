@@ -3,12 +3,16 @@ package com.trung.chat.safechat.service;
 import com.trung.chat.safechat.entity.User;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
+import org.springframework.stereotype.Service;
 
+import javax.crypto.SecretKey;
 import java.util.Date;
 import java.util.UUID;
 
+@Service
 public class JwtService {
-    private final String SECRET_KEY = "My-Secret-Key-Dcmmmmm";
+    private final SecretKey SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
     public String generateToken(User user){
         return Jwts.builder()
