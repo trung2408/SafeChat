@@ -19,6 +19,8 @@ public class User {
     // Tương tự như bên Conversation
 
     private LocalDateTime createdAt;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @PrePersist
     public void onCreating(){
@@ -28,10 +30,11 @@ public class User {
     public User() {
     }
 
-    public User(String userName, String email, String password) {
+    public User(String userName, String email, String password, Role role) {
         this.userName = userName;
         this.email = email;
         this.password = password;
+        this.role = role;
     }
 
     public void onCreate(){
@@ -78,6 +81,21 @@ public class User {
         return id;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
 //    public List<Message> getMessageList() {
 //        return messageList;
 //    }
