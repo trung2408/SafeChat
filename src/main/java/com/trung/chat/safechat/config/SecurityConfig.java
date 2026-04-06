@@ -1,5 +1,6 @@
-package com.trung.chat.safechat.security;
+package com.trung.chat.safechat.config;
 
+import com.trung.chat.safechat.security.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
