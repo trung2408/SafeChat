@@ -60,4 +60,8 @@ public class ConversationService {
     public List<Conversation> getUserConversation(UUID userId){
         return conversationParticipantRepository.findByUserId(userId);
     }
+
+    public boolean isMember(String userId, String conversationId){
+        return conversationParticipantRepository.existsByUserIdAndConversationId(UUID.fromString(userId), UUID.fromString(conversationId));
+    }
 }
