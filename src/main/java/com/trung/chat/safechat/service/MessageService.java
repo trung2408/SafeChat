@@ -62,8 +62,10 @@ public class MessageService {
             read.setUser(user);
             read.setConversation(conversation);
         }
-        read.setLastReadMessage(lastMessage);
-        read.setReadAt(LocalDateTime.now());
+        if(lastMessage!=null){
+            read.setLastReadMessage(lastMessage);
+            read.setReadAt(LocalDateTime.now());
+        }
         conversationReadRepository.save(read);
     }
 
