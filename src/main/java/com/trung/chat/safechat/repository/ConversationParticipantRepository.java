@@ -17,7 +17,7 @@ public interface ConversationParticipantRepository extends JpaRepository<Convers
         LEFT JOIN cp.conversation.lastMessage lm 
         WHERE cp.user.id = :userId
         ORDER BY lm.createdAt DESC 
-""")
+    """)
     List<Conversation> findUserConversations(UUID userId);
 
     boolean existsByUserIdAndConversationId(UUID senderId, UUID conversationId);
