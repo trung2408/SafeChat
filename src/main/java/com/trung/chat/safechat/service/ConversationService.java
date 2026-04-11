@@ -50,6 +50,7 @@ public class ConversationService {
     @Transactional
     public Conversation createGroupConversation(List<UUID> userList){
         Conversation conversation = new Conversation(ConversationType.GROUP);
+        conversationRepository.save(conversation);
         for(UUID userId : userList){
             User user = userRepository.findById(userId).orElseThrow(() -> new NotFountException("User not found"));
             conversationParticipantRepository.save(new ConversationParticipant(user, conversation));
