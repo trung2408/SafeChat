@@ -1,9 +1,7 @@
 package com.trung.chat.safechat.service;
 
-import com.trung.chat.safechat.entity.Conversation;
-import com.trung.chat.safechat.entity.ConversationParticipant;
-import com.trung.chat.safechat.entity.ConversationType;
-import com.trung.chat.safechat.entity.User;
+import com.trung.chat.safechat.dto.conversation.ConversationResponseDTO;
+import com.trung.chat.safechat.entity.*;
 import com.trung.chat.safechat.exception.NotFountException;
 import com.trung.chat.safechat.repository.ConversationParticipantRepository;
 import com.trung.chat.safechat.repository.ConversationRepository;
@@ -58,8 +56,20 @@ public class ConversationService {
         return conversation;
     }
 
-    public List<Conversation> getUserConversation(UUID userId){
-        return conversationParticipantRepository.findByUserId(userId);
+    public List<ConversationResponseDTO> getUserConversation(UUID userId){
+        List<Conversation> conversations = conversationParticipantRepository.findUserConversations(userId);
+
+        return conversations.stream().map(c -> {
+            Message lastMessage = c.getLastMessage();
+
+            return new ConversationResponseDTO(
+                    c.getConversationId(),
+                    c.getType(),
+                    lastMessage.getMessageId(),
+                    lastMessage.getContent(),
+                    lastMessage.getUser().getUserId(),
+                    lastMessage.getCreatedAt());
+        }).toList();
     }
 
     public boolean isMember(String userId, String conversationId){
