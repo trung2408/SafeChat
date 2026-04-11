@@ -12,6 +12,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -31,9 +33,18 @@ public class ConversationController {
         ConversationResponseDTO conversationDTO = new ConversationResponseDTO(
                 conversation.getConversationId(),
                 conversation.getType(),
+                conversation.getLastMessage().getMessageId(),
+                conversation.getLastMessage().getContent(),
+                conversation.getLastMessage().getUser().getUserId(),
                 conversation.getCreatedAt()
         );
         return ResponseEntity.ok(conversationDTO);
+    }
+
+    @GetMapping
+    public List<ConversationResponseDTO> getUserConversations(Principal principal){
+        UUID userId = UUID.fromString(principal.getName());
+        return conversationService.getUserConversation(userId);
     }
 
     @PostMapping("/private")
