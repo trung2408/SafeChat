@@ -33,9 +33,6 @@ public class ConversationController {
         ConversationResponseDTO conversationDTO = new ConversationResponseDTO(
                 conversation.getConversationId(),
                 conversation.getType(),
-                conversation.getLastMessage().getMessageId(),
-                conversation.getLastMessage().getContent(),
-                conversation.getLastMessage().getUser().getUserId(),
                 conversation.getCreatedAt()
         );
         return ResponseEntity.ok(conversationDTO);
