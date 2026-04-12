@@ -21,4 +21,11 @@ public interface ConversationParticipantRepository extends JpaRepository<Convers
     List<Conversation> findUserConversations(UUID userId);
 
     boolean existsByUserIdAndConversationId(UUID senderId, UUID conversationId);
+
+    @Query("""
+        SELECT cp.user.id
+        FROM ConversationParticipant cp
+        WHERE cp.conversation.id = :convesationId
+    """)
+    List<UUID> findAllUsersInConversation(String conversationId);
 }
