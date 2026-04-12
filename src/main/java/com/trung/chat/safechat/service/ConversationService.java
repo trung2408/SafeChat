@@ -75,4 +75,10 @@ public class ConversationService {
     public boolean isMember(String userId, String conversationId){
         return conversationParticipantRepository.existsByUserIdAndConversationId(UUID.fromString(userId), UUID.fromString(conversationId));
     }
+
+    public List<String> getMembers(String conversationId){
+        return conversationParticipantRepository.findAllUsersInConversation(conversationId).stream().map(
+                c -> c.toString()
+        ).toList();
+    }
 }
