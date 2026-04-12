@@ -3,8 +3,11 @@ package com.trung.chat.safechat.websocket.interceptor;
 import com.trung.chat.safechat.exception.BussinessException;
 import com.trung.chat.safechat.service.ConversationService;
 import com.trung.chat.safechat.service.JwtService;
+import com.trung.chat.safechat.websocket.dto.StatusDTO;
+import com.trung.chat.safechat.websocket.service.PresenceService;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.stomp.StompCommand;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.messaging.support.ChannelInterceptor;
@@ -17,10 +20,14 @@ import java.util.UUID;
 public class AuthChannelInterceptor implements ChannelInterceptor {
     private final JwtService jwtService;
     private final ConversationService conversationService;
+    private final PresenceService presenceService;
+    private final SimpMessagingTemplate simpMessagingTemplate;
 
-    public AuthChannelInterceptor(JwtService jwtService, ConversationService conversationService){
+    public AuthChannelInterceptor(JwtService jwtService, ConversationService conversationService, PresenceService presenceService, SimpMessagingTemplate simpMessagingTemplate){
         this.jwtService = jwtService;
         this.conversationService = conversationService;
+        this.presenceService = presenceService;
+        this.simpMessagingTemplate = simpMessagingTemplate;
     }
 
     public Message<?>preSend(Message<?> message, MessageChannel channel){
@@ -45,6 +52,11 @@ public class AuthChannelInterceptor implements ChannelInterceptor {
                                     new ArrayList<>()
                                     );
                     accessor.setUser(user);
+
+                    presenceService.setOnline(userId.toString());
+                    simpMessagingTemplate.convertAndSend(
+                            "/topic/status",
+                            new StatusDTO(userId.toString(), "ONLINE"));
                 }
             }
 
@@ -54,6 +66,9 @@ public class AuthChannelInterceptor implements ChannelInterceptor {
             String userId = accessor.getUser().getName();
             String destination = accessor.getDestination();
 
+            if(accessor.getUser() == null){
+                throw new BussinessException("Unauthorized");
+            }
             if(destination != null && destination.startsWith("/topic/conversations/")){
                 String[] parts = destination.split("/");
                 if(parts.length < 4){
@@ -64,6 +79,16 @@ public class AuthChannelInterceptor implements ChannelInterceptor {
                     throw new BussinessException("Not allowed");
                 }
             }
+        }
+
+        if(StompCommand.DISCONNECT.equals(accessor.getCommand())){
+            if(accessor.getUser() != null){
+                presenceService.setOffline(accessor.getUser().getName());
+            }
+            simpMessagingTemplate.convertAndSend(
+                    "/topic/status",
+                    new StatusDTO(accessor.getUser().getName(), "OFFLINE")
+            );
         }
         return message;
     }
